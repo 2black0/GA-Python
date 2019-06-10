@@ -4,7 +4,7 @@ import datetime
 # generate new gen
 def create_gen(panjang_target):
     random_number = np.random.randint(32, 126, size=panjang_target)
-    gen = ""    .join([chr(i) for i in random_number])
+    gen = ''.join([chr(i) for i in random_number])
     return gen
 
 # calculate fitness of gen
