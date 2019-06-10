@@ -13,15 +13,13 @@ def calculate_fitness(gen, target, panjang_target):
     for i in range (panjang_target):
         if gen[i:i+1] == target[i:i+1]:
             fitness += 1
-        else:
-            fitness = fitness
     fitness = fitness / panjang_target * 100
     return fitness
 
 # create population
-def create_population(target, besar_populasi, panjang_target):
+def create_population(target, max_population, panjang_target):
     populasi = {}
-    for i in range(besar_populasi):
+    for i in range(max_population):
         gen = create_gen(panjang_target)
         genfitness = calculate_fitness(gen, target, panjang_target)
         populasi[gen] =  genfitness
@@ -50,14 +48,13 @@ def crossover(parent, target, panjang_target):
     return child
 
 # mutation
-def mutation(child, target, laju_mutasi, panjang_target):
+def mutation(child, target, mutation_rate, panjang_target):
     mutant = {}
     for i in range(len(child)):     
         data = list(list(child)[i])
         for j in range(len(data)):
-            if np.random.rand(1) <= laju_mutasi:
+            if np.random.rand(1) <= mutation_rate:
                 ch = chr(np.random.randint(32, 126))
-                #print('data ke :', i,',', j, 'data awal :', data[j], 'data akhir :', ch,'\n')
                 data[j] = ch
         gen = ''.join(data)
         genfitness = calculate_fitness(gen, target, panjang_target)
@@ -72,6 +69,11 @@ def regeneration(mutant, populasi):
     populasi.update(mutant)
     return populasi
 
+# get best gen in a population
+def bestgen(parent):
+    gen = max(parent, key=parent.get)
+    return gen
+
 # get best fitness in a population
 def bestfitness(parent):
     fitness = parent[max(parent, key=parent.get)]
@@ -80,35 +82,36 @@ def bestfitness(parent):
 # display function
 def display(parent):
     timeDiff=datetime.datetime.now()-startTime
-    data = list(parent)
-    print('{}\t{}%\t{}'.format(data[0],round(parent[data[0]],2),timeDiff))
+    print('{}\t{}%\t{}'.format(bestgen(parent), round(bestfitness(parent), 2), timeDiff))
 
 # main program
 target = 'Hello World!'
-besar_populasi = 10
-laju_mutasi = 0.2
+max_population = 10
+mutation_rate = 0.2
 
 print('Target Word :', target)
-print('Max Population :', besar_populasi)
-print('Mutation Rate :', laju_mutasi)
+print('Max Population :', max_population)
+print('Mutation Rate :', mutation_rate, '\n')
 
 panjang_target = len(target)
 startTime=datetime.datetime.now()
+print('----------------------------------------------')
 print('{}\t{}\t{}'.format('The Best','Fitness','Time'))
-print('{}\t{}\t{}'.format('--------','-------','----'))
-populasi = create_population(target, int(besar_populasi), panjang_target)
+print('----------------------------------------------')
+populasi = create_population(target, int(max_population), panjang_target)
 parent = selection(populasi)
 
 display(parent)
 while 1:
     child = crossover(parent, target, panjang_target)
-    mutant = mutation(child, target, float(laju_mutasi), panjang_target)
+    mutant = mutation(child, target, float(mutation_rate), panjang_target)
     if bestfitness(parent) >= bestfitness(mutant):
         continue
     populasi = regeneration(mutant, populasi)
     parent = selection(populasi)
     display(parent)
     if bestfitness(mutant) >= 100:
-        print('-------------------------')
+        print('----------------------------------------------')
+        print('\n')
         print('Target found, End Process')
         break
