@@ -91,7 +91,7 @@ mutation_rate = 0.2
 
 print('Target Word :', target)
 print('Max Population :', max_population)
-print('Mutation Rate :', mutation_rate, '\n')
+print('Mutation Rate :', mutation_rate)
 
 panjang_target = len(target)
 startTime=datetime.datetime.now()
@@ -111,7 +111,4 @@ while 1:
     parent = selection(populasi)
     display(parent)
     if bestfitness(mutant) >= 100:
-        print('----------------------------------------------')
-        print('\n')
-        print('Target found, End Process')
         break
