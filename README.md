@@ -18,7 +18,17 @@ Flowchart of GA
 ### 1. Initialize Population
 What is population? Population is a collection of genes
 
-so before running this algorithm we need to create new population which is a place to save a gen
+What is gen? its an individual in the population
+
+for simple explanation, I have an example :
+``` 
+gen = 'Hello World!'
+Population = ('Hello World!', 'Hello Wordd!', 'Hello Morth!')
+````
+The length of target is 12 character, so the gen will have 12 character too
+
+Before running the algorithm we need to create new population which is a place to save a gen
+
 
 gen is an individual which compare with the target
 
