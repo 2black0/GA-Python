@@ -16,9 +16,8 @@ Flowchart of GA
 ![Flowchart of GA](https://cdn-images-1.medium.com/max/1600/1*HP8JVxlJtOv14rGLJfXEzA.png)
 
 ### 1. Initialize Population
-What is population? Population is a collection of genes
-
-What is gen? its an individual in the population
+> What is population? Population is a collection of genes
+> What is gen? its an individual in the population
 
 for simple explanation, I have an example :
 ``` 
