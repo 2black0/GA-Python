@@ -1,6 +1,9 @@
 # Simple Genetic Algorithm on Python
 This project to show the genetic algorithm process in python
+
 Why python? cos I love it
+
+dont love python? its your problem :P
 
 ## Requirement
 ```
